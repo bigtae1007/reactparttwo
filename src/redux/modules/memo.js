@@ -12,7 +12,8 @@ const initialState = [
 // 액션
 const CREATE = "memo/CREATE";
 const UPDATE_check = "memo_check/UPDATE";
-const REMOVE = "memo/REMOVE";
+const UPDATE_memo = "memo/UPDATE";
+// const REMOVE = "memo/REMOVE";
 const DELETE = "memo/DETELE";
 
 //액션 함수
@@ -22,6 +23,10 @@ export const createMemo = (memo) => {
 
 export const updateCheck = (index_id) => {
   return { type: UPDATE_check, index_id };
+};
+
+export const updateMemo = (memo, index) => {
+  return { type: UPDATE_memo, memo, index };
 };
 
 export const deleteMemo = (index_id) => {
@@ -38,6 +43,7 @@ export default function reducer(state = initialState, action = {}) {
     case CREATE:
       const newMemo = [...state, action.memo];
       return newMemo;
+
     case UPDATE_check:
       const checkMemo = state.map((v, l) => {
         if (l === action.index_id) {
@@ -48,12 +54,19 @@ export default function reducer(state = initialState, action = {}) {
         }
       });
       return checkMemo;
+
     case DELETE:
       const deleteMemo = state.filter((v, l) => {
         return action.index_id === l ? false : true;
       });
       return deleteMemo;
-
+    case UPDATE_memo:
+      const changeNewMemo = state.map((v, l) => {
+        return l === Number(action.index) ? action.memo : v;
+      });
+      console.log(action.index, "aa");
+      console.log(changeNewMemo, "vv");
+      return changeNewMemo;
     default:
       return state;
   }

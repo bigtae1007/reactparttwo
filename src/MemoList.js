@@ -5,12 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const MemoList = () => {
   const memoList = useSelector((state) => state.memo);
-  console.log(memoList);
   const navigate = useNavigate();
+
   return (
     <WarmCard>
       {memoList.map((v, l) => {
-        return <MemoCard key={v.id} memo={v} id={l} complete={v.check} />;
+        return <MemoCard key={l} memo={v} id={l} complete={v.check} />;
       })}
 
       <AddBtn
