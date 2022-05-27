@@ -24,6 +24,11 @@ export const updateCheck = (index_id) => {
   return { type: UPDATE_check, index_id };
 };
 
+export const deleteMemo = (index_id) => {
+  return { type: DELETE, index_id };
+};
+
+//reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     // do reducer stuff
@@ -36,17 +41,19 @@ export default function reducer(state = initialState, action = {}) {
     case UPDATE_check:
       const checkMemo = state.map((v, l) => {
         if (l === action.index_id) {
-          v.check = true;
-          console.log(v);
+          v.check ? (v.check = false) : (v.check = true);
           return v;
         } else {
-          console.log(v);
-
           return v;
         }
       });
-      console.log(state);
-      console.log(action.index_id);
+      return checkMemo;
+    case DELETE:
+      const deleteMemo = state.filter((v, l) => {
+        return action.index_id === l ? false : true;
+      });
+      return deleteMemo;
+
     default:
       return state;
   }

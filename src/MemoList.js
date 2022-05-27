@@ -10,7 +10,7 @@ const MemoList = () => {
   return (
     <WarmCard>
       {memoList.map((v, l) => {
-        return <MemoCard key={v.id} memo={v} id={l} />;
+        return <MemoCard key={v.id} memo={v} id={l} complete={v.check} />;
       })}
 
       <AddBtn
