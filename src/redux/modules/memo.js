@@ -34,7 +34,19 @@ export default function reducer(state = initialState, action = {}) {
       const newMemo = [...state, action.memo];
       return newMemo;
     case UPDATE_check:
-      console.log(action);
+      const checkMemo = state.map((v, l) => {
+        if (l === action.index_id) {
+          v.check = true;
+          console.log(v);
+          return v;
+        } else {
+          console.log(v);
+
+          return v;
+        }
+      });
+      console.log(state);
+      console.log(action.index_id);
     default:
       return state;
   }
