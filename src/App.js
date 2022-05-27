@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import styled from "styled-components";
+
+// 컴포넌트
+import MemoList from "./MemoList";
+import SaveText from "./SaveText";
+import Title from "./Title";
+import ChgText from "./ChgText";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Title />
+      <Routes>
+        <Route path="/" element={<MemoList />} />
+        <Route path="/add" element={<SaveText />} />
+        <Route path="/change/:index" element={<ChgText />} />
+      </Routes>
     </div>
   );
 }
 
 export default App;
+
+const DivMargin = styled.div``;

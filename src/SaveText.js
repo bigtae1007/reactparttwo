@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const SaveText = () => {
   const ab = useSelector((state) => state);
-  console.log(ab);
+  // console.log(ab);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const word = useRef();
@@ -31,7 +31,6 @@ const SaveText = () => {
           check: false,
         })
       );
-      console.log("a");
     } else {
       alert("빈칸 없이 작성해 주세요 ! ");
     }

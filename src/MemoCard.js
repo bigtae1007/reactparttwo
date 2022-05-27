@@ -2,25 +2,27 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateCheck } from "./redux/modules/memo";
-import { deleteMemo } from "./redux/modules/memo";
+import { updateCheck, deleteMemo } from "./redux/modules/memo";
+import { useNavigate } from "react-router-dom";
+
 const MemoCard = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const memoData = props.memo;
   const checkState = props.complete;
   const indexId = props.id;
   // 완료 표시 후 check 상태 변경하기
   const chgCheck = (index_id) => {
     dispatch(updateCheck(index_id));
+    console.log(checkState);
   };
 
   // 삭제 클릭 후 삭제하기
   const delMemo = (index_id) => {
     dispatch(deleteMemo(index_id));
   };
-  const chgMemo = () => {
-    console.log(checkState);
-    console.log("chg");
+  const chgMemo = (index_id) => {
+    navigate(`/change/${index_id}`);
   };
   console.log(props.memo.check);
 
