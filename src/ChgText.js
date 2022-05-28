@@ -4,14 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 // 액션 실행
 import { useDispatch } from "react-redux";
 // 추가 액션함수
-import { updateMemo } from "./redux/modules/memo";
+import { updateMemoFB } from "./redux/modules/memo";
 import { useSelector } from "react-redux";
 
 const ChgText = () => {
   // 파라미터로 주소받기 :index
-  const { index } = useParams();
+  const { id, num } = useParams();
   // 해당 단어장 데이터 가져오기
-  const textMemo = useSelector((state) => state.memo[index]);
+  const textMemo = useSelector((state) => state.memo[num]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const word = useRef();
@@ -33,16 +33,20 @@ const ChgText = () => {
       ex.current.value !== ""
     ) {
       dispatch(
-        updateMemo(
+        updateMemoFB(
           {
+            id: id,
             word: word.current.value,
             comment: comment.current.value,
             ex: ex.current.value,
             check: false,
           },
-          index
+          id,
+          num
         )
       );
+      alert("단어 저장 완료 ! ");
+      navigate("/");
     } else {
       alert("빈칸 없이 작성해 주세요 ! ");
     }

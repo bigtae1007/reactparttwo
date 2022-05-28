@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateCheck, deleteMemo } from "./redux/modules/memo";
+import { deleteMemoFB, updateCheckFB } from "./redux/modules/memo";
 import { useNavigate } from "react-router-dom";
 
 const MemoCard = (props) => {
@@ -10,28 +10,28 @@ const MemoCard = (props) => {
   const navigate = useNavigate();
   const memoData = props.memo;
   const checkState = props.complete;
-  const indexId = props.id;
+  const indexId = props.memo.id;
+  const indexNum = props.num;
   // 완료 표시 후 check 상태 변경하기
-  const chgCheck = (index_id) => {
-    dispatch(updateCheck(index_id));
-    console.log(checkState);
+  const chgCheck = (index_id, check) => {
+    dispatch(updateCheckFB(index_id, check));
   };
 
   // 삭제 클릭 후 삭제하기
   const delMemo = (index_id) => {
-    dispatch(deleteMemo(index_id));
+    dispatch(deleteMemoFB(index_id));
+    alert("삭제됐습니다");
   };
   const chgMemo = (index_id) => {
-    navigate(`/change/${index_id}`);
+    navigate(`/change/${index_id}/${indexNum}`);
   };
-  console.log(props.memo.check);
 
   return (
     <WarpCard check={checkState}>
       <BtnDiv>
         <Btn
           onClick={() => {
-            chgCheck(indexId);
+            chgCheck(indexId, checkState);
           }}
         >
           &#10003;
@@ -54,7 +54,7 @@ const MemoCard = (props) => {
       <h4>
         <SpanText>단어</SpanText>
         <br />
-        {memoData.word}.
+        {memoData.word}
       </h4>
 
       <p>
