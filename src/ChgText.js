@@ -19,10 +19,12 @@ const ChgText = () => {
   const ex = useRef();
 
   useEffect(() => {
+    setTimeout(() => {
+      word.current.value = textMemo.word;
+      comment.current.value = textMemo.comment;
+      ex.current.value = textMemo.ex;
+    }, 1);
     // DOM 구성 이후 이전 값 가지고 오기
-    word.current.value = textMemo.word;
-    comment.current.value = textMemo.comment;
-    ex.current.value = textMemo.ex;
   });
 
   // 저장하기 이벤트
