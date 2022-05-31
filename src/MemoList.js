@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import MemoCard from "./MemoCard";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +28,15 @@ const MemoList = () => {
 
 export default MemoList;
 
+const btnRotation = keyframes`
+ from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 const WarmCard = styled.div`
   display: flex;
   margin: 100px auto 0;
@@ -46,6 +55,9 @@ const AddBtn = styled.button`
   height: 80px;
   font-size: 5em;
   line-height: 8px;
-  cursor: pointer;
   border-radius: 50%;
+  cursor: pointer;
+  &:hover {
+    animation: ${btnRotation} 2s infinite linear alternate;
+  }
 `;
