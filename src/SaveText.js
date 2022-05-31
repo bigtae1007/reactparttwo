@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 // 액션 실행
 import { useDispatch } from "react-redux";
 // 추가 액션함수
-import { createMemoFB } from "./redux/modules/memo";
+import { __addMemos } from "./redux/modules/memo";
 import { useSelector } from "react-redux";
 
 const SaveText = () => {
@@ -15,7 +15,7 @@ const SaveText = () => {
   const comment = useRef();
   const ex = useRef();
 
-  // 저장하기 이벤트
+  // 저장 onclick 이벤트
   const textSave = () => {
     if (
       word.current.value !== "" &&
@@ -23,15 +23,15 @@ const SaveText = () => {
       ex.current.value !== ""
     ) {
       dispatch(
-        createMemoFB({
+        __addMemos({
           word: word.current.value,
           comment: comment.current.value,
           ex: ex.current.value,
           check: false,
         })
       );
-      // alert("단어 저장 완료 ! ");
-      // navigate("/");
+      alert("단어 저장 완료 ! ");
+      navigate("/");
     } else {
       alert("빈칸 없이 작성해 주세요 ! ");
     }

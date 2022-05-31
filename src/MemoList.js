@@ -1,15 +1,17 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import MemoCard from "./MemoCard";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const MemoList = () => {
-  const memoList = useSelector((state) => state.memo);
+  // 저장된 memo 리스트
+  const { memo } = useSelector((state) => state.memos);
   const navigate = useNavigate();
 
   return (
     <WarmCard>
-      {memoList.map((v, l) => {
+      {/* 카드 리스트 반복 */}
+      {memo.map((v, l) => {
         return <MemoCard key={v.id} memo={v} complete={v.check} num={l} />;
       })}
 
@@ -36,6 +38,7 @@ const WarmCard = styled.div`
 const AddBtn = styled.button`
   position: fixed;
   background-color: rgba(1, 100, 1, 0.8);
+  color: #fff;
   border: none;
   bottom: 40px;
   right: 40px;

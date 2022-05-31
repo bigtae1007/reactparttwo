@@ -4,14 +4,16 @@ import { useNavigate, useParams } from "react-router-dom";
 // 액션 실행
 import { useDispatch } from "react-redux";
 // 추가 액션함수
-import { updateMemoFB } from "./redux/modules/memo";
+import { __updateMemo } from "./redux/modules/memo";
 import { useSelector } from "react-redux";
 
 const ChgText = () => {
-  // 파라미터로 주소받기 :index
+  // 파라미터로 주소받기 (데이터 id값, 인덱스 값)
   const { id, num } = useParams();
+
+  const { loading, error, memo } = useSelector((state) => state.memos);
   // 해당 단어장 데이터 가져오기
-  const textMemo = useSelector((state) => state.memo[num]);
+  const textMemo = memo[num];
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const word = useRef();
@@ -19,15 +21,13 @@ const ChgText = () => {
   const ex = useRef();
 
   useEffect(() => {
-    setTimeout(() => {
-      word.current.value = textMemo.word;
-      comment.current.value = textMemo.comment;
-      ex.current.value = textMemo.ex;
-    }, 1);
-    // DOM 구성 이후 이전 값 가지고 오기
+    // 콜체인 사용하여 새로고침 에러 방지
+    word.current.value = textMemo?.word;
+    comment.current.value = textMemo?.comment;
+    ex.current.value = textMemo?.ex;
   });
 
-  // 저장하기 이벤트
+  // 수정 내용 저장하기 이벤트
   const textChg = () => {
     if (
       word.current.value !== "" &&
@@ -35,7 +35,7 @@ const ChgText = () => {
       ex.current.value !== ""
     ) {
       dispatch(
-        updateMemoFB(
+        __updateMemo(
           {
             id: id,
             word: word.current.value,
@@ -43,7 +43,6 @@ const ChgText = () => {
             ex: ex.current.value,
             check: false,
           },
-          id,
           num
         )
       );
@@ -53,7 +52,12 @@ const ChgText = () => {
       alert("빈칸 없이 작성해 주세요 ! ");
     }
   };
-
+  if (loading) {
+    return <p>sdadsa</p>;
+  }
+  if (error) {
+    return <p>i don't know</p>;
+  }
   return (
     <FormWrap>
       <BackArrow

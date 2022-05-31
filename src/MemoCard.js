@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteMemoFB, updateCheckFB } from "./redux/modules/memo";
+import { __changeCheck, __deleteMemo } from "./redux/modules/memo";
 import { useNavigate } from "react-router-dom";
 
 const MemoCard = (props) => {
@@ -14,14 +14,15 @@ const MemoCard = (props) => {
   const indexNum = props.num;
   // 완료 표시 후 check 상태 변경하기
   const chgCheck = (index_id, check) => {
-    dispatch(updateCheckFB(index_id, check));
+    dispatch(__changeCheck({ index_id, check }));
   };
 
-  // 삭제 클릭 후 삭제하기
+  // 삭제하기 이벤트
   const delMemo = (index_id) => {
-    dispatch(deleteMemoFB(index_id));
+    dispatch(__deleteMemo(index_id));
     alert("삭제됐습니다");
   };
+  // 변경하기 페이지 이동
   const chgMemo = (index_id) => {
     navigate(`/change/${index_id}/${indexNum}`);
   };
